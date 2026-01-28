@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Ultimate Anime Quiz - Plataforma de minijuegos de anime con datos verificables">
+    <meta name="theme-color" content="#6366f1">
+    
+    <title>Ultimate Anime Quiz 🎮</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- PANTALLA DE BIENVENIDA -->
+    <div id="welcome-screen" class="screen">
+        <div class="welcome-container">
+            <div class="welcome-header">
+                <h1>Ultimate Anime Quiz</h1>
+                <p class="tagline">🎮 Minijuegos de Anime • Datos Reales • Leaderboards Locales</p>
+            </div>
+
+            <div class="welcome-content">
+                <div class="feature-list">
+                    <div class="feature">
+                        <span class="icon">📚</span>
+                        <h3>Quiz Clásico</h3>
+                        <p>Preguntas verificadas sobre anime</p>
+                    </div>
+                    <div class="feature">
+                        <span class="icon">🎵</span>
+                        <h3>Adivina el Opening</h3>
+                        <p>Tipo Heardle con openings reales</p>
+                    </div>
+                    <div class="feature">
+                        <span class="icon">❤️</span>
+                        <h3>Smash or Pass</h3>
+                        <p>Solo personajes canonicamente adultos</p>
+                    </div>
+                    <div class="feature">
+                        <span class="icon">📊</span>
+                        <h3>Comparaciones</h3>
+                        <p>¿Cuál es más famoso? ¿Mejor rating?</p>
+                    </div>
+                </div>
+
+                <form id="profile-form" class="profile-form">
+                    <input 
+                        id="player-name-input" 
+                        type="text" 
+                        placeholder="Ingresa tu nombre de jugador" 
+                        maxlength="20"
+                        required
+                    >
+                    <button id="btn-create-profile" type="button" class="btn-primary">
+                        ¡Empezar a Jugar!
+                    </button>
+                </form>
+
+                <div class="welcome-footer">
+                    <p>✅ 100% Frontend • 🔒 Datos Locales • 📱 Responsive</p>
+                    <p class="small-text">Todos los datos son verificables y reales.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MENÚ PRINCIPAL -->
+    <div id="main-menu" class="screen" style="display: none;">
+        <div class="menu-container">
+            <div class="menu-header">
+                <h1>Ultimate Anime Quiz</h1>
+                <div id="player-display" class="player-display"></div>
+            </div>
+
+            <nav class="menu-nav">
+                <button class="menu-btn" onclick="gameApp.showGameSelect()">
+                    <span class="icon">🎮</span>
+                    <span>Jugar</span>
+                </button>
+                <button class="menu-btn" onclick="gameApp.showLeaderboard()">
+                    <span class="icon">🏆</span>
+                    <span>Leaderboard</span>
+                </button>
+                <button class="menu-btn" onclick="gameApp.showProfile()">
+                    <span class="icon">👤</span>
+                    <span>Mi Perfil</span>
+                </button>
+                <button class="menu-btn" onclick="gameApp.createNewProfile(prompt('Nuevo nombre:'))">
+                    <span class="icon">➕</span>
+                    <span>Nuevo Jugador</span>
+                </button>
+            </nav>
+
+            <div class="menu-info">
+                <h3>ℹ️ Sobre esta plataforma</h3>
+                <ul>
+                    <li>✅ Datos verificables de fuentes reales (MAL, IMDb, Wikias oficiales)</li>
+                    <li>🔒 Todo almacenado localmente en tu navegador</li>
+                    <li>📱 Diseño responsive para mobile y desktop</li>
+                    <li>🎯 Sistema de puntuación competitivo</li>
+                    <li>⚖️ Criterios éticos estrictos (solo personajes 18+, sin contenido explícito)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- SELECTOR DE JUEGOS -->
+    <div id="game-selector" class="screen" style="display: none;">
+        <div class="game-select-container">
+            <div class="back-header">
+                <button class="btn-back" onclick="gameApp.showMenu()">← Volver</button>
+                <h2>Selecciona un Juego</h2>
+            </div>
+
+            <div class="games-grid">
+                <!-- Quiz Clásico -->
+                <div class="game-card" onclick="gameApp.startGame('quiz')">
+                    <div class="card-header">
+                        <span class="icon">📚</span>
+                        <h3>Quiz Clásico</h3>
+                    </div>
+                    <p class="description">Responde preguntas sobre anime con fuentes verificadas</p>
+                    <ul class="features">
+                        <li>10 preguntas</li>
+                        <li>Dificultad variada</li>
+                        <li>Fuentes citadas</li>
+                    </ul>
+                    <div class="source-badge">Fuente: MAL, Wikias</div>
+                </div>
+
+                <!-- Opening Heardle -->
+                <div class="game-card disabled" title="Requiere audio local">
+                    <div class="card-header">
+                        <span class="icon">🎵</span>
+                        <h3>Adivina el Opening</h3>
+                    </div>
+                    <p class="description">Escucha clips y adivina qué opening es</p>
+                    <ul class="features">
+                        <li>Progresión de duración</li>
+                        <li>Metadata real</li>
+                        <li>Sistema de vidas</li>
+                    </ul>
+                    <div class="source-badge">Requiere: Archivos locales</div>
+                    <p class="note">⏱️ En desarrollo - requiere setup de audio</p>
+                </div>
+
+                <!-- Smash or Pass -->
+                <div class="game-card" onclick="gameApp.startGame('smash_or_pass')">
+                    <div class="card-header">
+                        <span class="icon">❤️</span>
+                        <h3>Smash or Pass</h3>
+                    </div>
+                    <p class="description">¿Lo harías? Solo personajes canonicamente adultos</p>
+                    <ul class="features">
+                        <li>8 personajes</li>
+                        <li>18+ verificado</li>
+                        <li>Imágenes oficiales</li>
+                    </ul>
+                    <div class="source-badge">Criterios éticos ✅</div>
+                </div>
+
+                <!-- Popularidad -->
+                <div class="game-card" onclick="gameApp.startGame('popularity_comparison')">
+                    <div class="card-header">
+                        <span class="icon">📊</span>
+                        <h3>¿Cuál es más famoso?</h3>
+                    </div>
+                    <p class="description">Compara la popularidad de dos anime</p>
+                    <ul class="features">
+                        <li>Datos MAL y IMDb</li>
+                        <li>Estadísticas reales</li>
+                        <li>10 rondas</li>
+                    </ul>
+                    <div class="source-badge">Fuente: MAL, IMDb</div>
+                </div>
+
+                <!-- Rule34 Stats (Disabled) -->
+                <div class="game-card disabled" title="Modo restringido">
+                    <div class="card-header">
+                        <span class="icon">📈</span>
+                        <h3>Rule34 Stats</h3>
+                    </div>
+                    <p class="description">Compara estadísticas NSFW (solo números)</p>
+                    <ul class="features">
+                        <li>Solo estadísticas</li>
+                        <li>18+ verificado</li>
+                        <li>Sin imágenes</li>
+                    </ul>
+                    <div class="source-badge">Datos limitados</div>
+                    <p class="note">⚠️ Insuficientes datos verificables en este momento</p>
+                </div>
+
+                <!-- Ratings -->
+                <div class="game-card disabled" title="En desarrollo">
+                    <div class="card-header">
+                        <span class="icon">⭐</span>
+                        <h3>¿Mejor Rating?</h3>
+                    </div>
+                    <p class="description">Compara ratings de anime y episodios</p>
+                    <ul class="features">
+                        <li>MAL Scores</li>
+                        <li>IMDb Ratings</li>
+                        <li>Por episodio</li>
+                    </ul>
+                    <div class="source-badge">Fuente: MAL, IMDb</div>
+                    <p class="note">🔧 En desarrollo</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTENEDOR DE JUEGO -->
+    <div id="game-container" class="screen" style="display: none;">
+        <!-- El contenido se genera dinámicamente aquí -->
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p>🎮 Ultimate Anime Quiz • Datos verificables • <a href="#" onclick="alert('README: Ver documentación en el proyecto')">Documentación</a></p>
+        <p class="small-text">Proyecto educativo - 100% Frontend - Último update: Enero 2025</p>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <!-- Datos -->
+    <script src="js/data/ratings.js"></script>
+    <script src="js/data/popularity.js"></script>
+    <script src="js/data/openings.js"></script>
+    <script src="js/data/rule34_stats.js"></script>
+
+    <!-- Sistema de almacenamiento -->
+    <script src="js/storage.js"></script>
+
+    <!-- Módulos de juegos -->
+    <script src="js/games/quiz.js"></script>
+    <script src="js/games/comparisons.js"></script>
+    <script src="js/games/smash_or_pass.js"></script>
+    <script src="js/games/opening_heardle.js"></script>
+
+    <!-- Main app -->
+    <script src="js/main.js"></script>
+</body>
+</html>
